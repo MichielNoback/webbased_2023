@@ -3,6 +3,7 @@ package nl.bioinf.servlets;
 import nl.bioinf.config.WebConfig; //change to your situation!
 import nl.bioinf.model.Address;
 import nl.bioinf.model.MessageFactory;
+import nl.bioinf.model.Movie;
 import nl.bioinf.model.Person;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
@@ -13,11 +14,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Comparator;
 import java.io.PrintWriter;
 import java.util.Date;
+import java.util.List;
 
-@WebServlet(name = "WelcomeServlet", urlPatterns = "/give.welcome", loadOnStartup = 1)
-public class WelcomeServlet extends HttpServlet {
+@WebServlet(name = "MoviesServlet", urlPatterns = "/the.movies", loadOnStartup = 1)
+public class MoviesServlet extends HttpServlet {
     private TemplateEngine templateEngine;
 
     @Override
@@ -37,14 +40,6 @@ public class WelcomeServlet extends HttpServlet {
 
     public void process(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
-        String name = request.getParameter("name");
-//        PrintWriter writer = response.getWriter();
-//        writer.println("Hallo dit is echt simpel!");
-//        writer.flush();
-
-        Address a = new Address("Zernikeplein", 11, "Groningen", "9747AS");
-        Person p = new Person("Jan", 23, a);
-        //Math.sqrt(4);
         //this step is optional; standard settings also suffice
         WebConfig.configureResponse(response);
         WebContext ctx = new WebContext(
@@ -52,9 +47,14 @@ public class WelcomeServlet extends HttpServlet {
                 response,
                 request.getServletContext(),
                 request.getLocale());
-        ctx.setVariable("person", p);
-        ctx.setVariable("currentDate", new Date());
-        ctx.setVariable("dayMessage", "hi, " + name + ": " + MessageFactory.giveMessage());
-        this.templateEngine.process("welcome", ctx, response.getWriter());
+
+        //java 8+ type Comparator
+//        ctx.setVariable("movies_year_sorter",
+//                (Comparator<Movie>) (o1, o2) -> Integer.compare(o1.getYear(), o2.getYear()));
+        List<Movie> allMovies = Movie.getAllMovies();
+        allMovies.sort((o1, o2) -> Integer.compare(o2.getYear(), o1.getYear()));
+        ctx.setVariable("movies", allMovies);
+        //ctx.setVariable("error", "This is an error message");
+        this.templateEngine.process("movies", ctx, response.getWriter());
     }
 }

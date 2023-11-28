@@ -1,0 +1,45 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Let's watch a movie!</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" th:href="@{/style/style.css}" />
+</head>
+<body>
+
+<h1 th:text="'We have ' + ${movies.size()} + ' movies on offer'">We have XXX movies on offer</h1>
+
+<h2 th:if="${error}" th:text="${error}">_offline_</h2>
+
+<table>
+    <thead>
+    <tr>
+        <th></th>
+        <th>Title</th>
+        <th>Year of release</th>
+        <th>IMDB rating</th>
+    </tr>
+    </thead>
+    <tbody>
+<!--    <tr th:each="movie:${#lists.sort(movies, movies_year_sorter)}" th:object="${movie}">-->
+        <tr th:each="movie, it_stat:${movies}"
+            th:class="${it_stat.first} ? 'first' : (${it_stat.even} ? 'even' : 'odd')">
+            <td th:text="${it_stat.count} + ' / ' + ${it_stat.size}"></td>
+            <td th:text="${movie.title}">_title_</td>
+            <td th:text="${movie.year}">_year_</td>
+            <td th:text="${movie.rating}">_rating_</td>
+        </tr>
+    </tbody>
+</table>
+
+<form action="#">
+    <select name="choose-movie">
+        <option th:each="movie:${movies}"
+                th:value="${movie.title}"
+                th:text="${movie.title}">_title_</option>
+    </select>
+
+</form>
+
+</body>
+</html>

@@ -12,5 +12,16 @@
 <p th:text="${dayMessage}">Daily message Offline</p>
 
 <p>Date: <span th:text="${currentDate}">Sat Oct 24 2015</span></p>
+
+<h3 th:text="'Hello, ' + ${person.nameWithAge}">_offline_</h3>
+<h3 th:text="'Name: ' + ${person.getName()}">_offline_</h3>
+<h3 th:text="'Testje ' + ${'zipcode: ' + person.address.zipCode}">_offline_</h3>
+
+<h3 th:text="'Het is nog ' + ${person.timeToRetirement(67)} + ' jaren tot uw pensioen'">_offline_</h3>
+
+<!--<div th:with="root=${T(java.lang.Math).sqrt(4)}">-->
+<!--    <p th:text="'De wortel van 4 is ' + ${root}"></p>-->
+<!--</div>-->
+<h3 th:text="'De wortel van 4 is ' + ${T(java.lang.Math).sqrt(4.0)}">_offline_</h3>
 </body>
 </html>
