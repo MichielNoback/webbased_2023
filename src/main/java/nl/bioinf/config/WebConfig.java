@@ -6,6 +6,8 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 
 public class WebConfig {
+    private static TemplateEngine templateEngine;
+
     public static TemplateEngine createTemplateEngine(ServletContext servletContext) {
         ServletContextTemplateResolver templateResolver =
                 new ServletContextTemplateResolver(servletContext);
@@ -19,6 +21,14 @@ public class WebConfig {
         templateResolver.setCacheable(true);
         TemplateEngine templateEngine = new TemplateEngine();
         templateEngine.setTemplateResolver(templateResolver);
+        WebConfig.templateEngine = templateEngine;
+        return templateEngine;
+    }
+
+    public static TemplateEngine getTemplateEngine(ServletContext servletContext) {
+        if (templateEngine == null) {
+            createTemplateEngine(servletContext);
+        }
         return templateEngine;
     }
 

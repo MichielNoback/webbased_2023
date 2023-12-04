@@ -1,0 +1,17 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org">
+<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>Authentication demo</title>
+
+    <link rel="stylesheet" th:href="@{/css/main.css}" href="../../css/main.css">
+</head>
+<body>
+<h4>Log in was successful</h4>
+<h4 th:text="${'Hello ' + session.user.name}" >_message_</h4>
+<h4 th:text="${'You visited ' + session.counter.counter + ' times'} ">_message_</h4>
+<h5>This site contains secret information</h5>
+</body>
+</html>
