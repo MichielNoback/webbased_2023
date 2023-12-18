@@ -1,5 +1,6 @@
 package nl.bioinf.servlets;
 
+import nl.bioinf.config.DatabaseWebListener;
 import nl.bioinf.model.Role;
 import nl.bioinf.model.User;
 import nl.bioinf.model.VisitCounter;
@@ -68,6 +69,12 @@ public class LoginServlet extends HttpServlet {
     }
 
     private boolean authenticate(String username, String password) {
+        User user = DatabaseWebListener.getDao().getUser(username, password);
+        System.out.println("User: " + user);
+        if (user != null) {
+            return true;
+        }
+
         return username.equals("Henk") && password.equals("henk");
     }
 

@@ -12,6 +12,9 @@ repositories {
 }
 
 dependencies {
+    implementation files('/Users/michielnoback/Lib/DButils-1.0.2.jar')
+    implementation group: 'mysql', name: 'mysql-connector-java', version: '5.1.44'
+
     //Servlets
     implementation 'javax.servlet:javax.servlet-api:4.0.0' // or 3.1.0
     //Thymeleaf
