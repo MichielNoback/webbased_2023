@@ -1,0 +1,72 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Movie addict</title>
+    <link rel="stylesheet" th:href="@{/style/main.css}" href="../../css/main.css">
+</head>
+<body>
+<h1>I am a movie addict</h1>
+<p>
+    Hi, welcome to my blog about movies. Just don't get hooked :-)
+</p>
+
+<div>
+    <h3>Review: Aquaman Is Good Enough</h3>
+    <p>Aquaman spans the vast, visually breathtaking underwater world of the seven seas and reveals the
+        origin story of half-human, half-Atlantean Arthur Curry (Jason Momoa), which takes him on the
+        journey of his lifetime—one that will not only force him to face who he really is, but to discover
+        if he ... <a href="#">[Read More]</a></p>
+</div>
+<!--more movies-->
+<div>
+    <h3><span>A random movie from the IMDB top 500</span></h3>
+    <div id="random_movie">
+        <span>Click the button to show info on one of the best movies ever made!</span>
+        <br/>
+    </div>
+    <button id="get_random_movie">Get me one!</button>
+</div>
+
+<div>
+    <h3>Five Greatest Gambling Movies Ever Made</h3>
+    <p>Everybody needs a role model. Even we gamblers are looking at the silver screen trying to find a hero
+        worth looking up to. And not even the best online casino could help it. We want to see a decisive
+        person able to make their own luck, someone, who takes a ...<a href="#">[Read More]</a></p>
+</div>
+<!--more movies-->
+<script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+
+<script type="application/javascript">
+    function processMovie(result){
+        console.log("processing " + JSON.stringify(result));
+        var movie = result.responseObject;
+        var movieHtml = "<h3>" + movie.title + " (" + movie.year + ")</h3>";
+        movieHtml += "IMDB rating: " + movie.rating + "<br />Main actors <br />";
+        $.each(movie.mainActors, function(i, actor){
+            movieHtml += "&nbsp;&nbsp;&nbsp;&nbsp;" + (i+1) + ". " + actor + "<br />";
+        });
+        movieHtml += "<br />"
+        console.log(movieHtml)
+        $("#random_movie").html(movieHtml);
+        $("#get_random_movie").text("Get another one!");
+    }
+
+    function getRandomMovie() {
+        console.log("fetching movie");
+        var movie_url = "movie_service?request_type=random";
+        jQuery.getJSON({
+            url:movie_url,
+            success: function(result) {
+                processMovie(result);
+            }
+        });
+    };
+
+    $("#get_random_movie").click(getRandomMovie);
+</script>
+</body>
+</html>

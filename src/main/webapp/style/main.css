@@ -1,0 +1,69 @@
+body,h1,h2,h3,h4,h5,h6 {
+    font-family: "Arial", sans-serif;
+    background-color: seashell;
+}
+
+body {
+    max-width: 800px;
+    margin: auto;
+}
+
+code {
+    color: dodgerblue;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+span {
+    color: indianred;
+}
+
+.even {
+    background-color: aliceblue;
+}
+.odd {
+    background-color: lightcyan;
+}
+
+.first {
+    background-color: coral;
+}
+
+#logo {
+    width: 200px;
+    float: left;
+    margin-right: 20px;
+}
+
+#banner_title {
+    color: chocolate;
+    font-size: 30px;
+    height: 100px;
+}
+
+strong {
+    font-size: 1.2em;
+    color: crimson;
+}
+
+.info {
+    color: green;
+}
+.error {
+    color: orangered;
+}
+#get_random_movie {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    font-weight: bold;
+    font-size: 1.5em;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 10px;
+}

@@ -19,8 +19,8 @@ import java.io.PrintWriter;
 import java.util.Date;
 import java.util.List;
 
-@WebServlet(name = "MoviesServlet", urlPatterns = "/the.movies", loadOnStartup = 1)
-public class MoviesServlet extends HttpServlet {
+@WebServlet(name = "MoviesServlet", urlPatterns = "/movie.ajax", loadOnStartup = 1)
+public class MoviesAjaxView extends HttpServlet {
     private TemplateEngine templateEngine;
 
     @Override
@@ -31,15 +31,9 @@ public class MoviesServlet extends HttpServlet {
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException{
-        process(request, response);
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException{
-        process(request, response);
-    }
-
-    public void process(HttpServletRequest request, HttpServletResponse response)
-            throws IOException {
         //this step is optional; standard settings also suffice
         WebConfig.configureResponse(response);
         WebContext ctx = new WebContext(
@@ -55,6 +49,6 @@ public class MoviesServlet extends HttpServlet {
 //        allMovies.sort((o1, o2) -> Integer.compare(o2.getYear(), o1.getYear()));
 //        ctx.setVariable("movies", allMovies);
         //ctx.setVariable("error", "This is an error message");
-        this.templateEngine.process("movies", ctx, response.getWriter());
+        this.templateEngine.process("movie_ajax", ctx, response.getWriter());
     }
 }
